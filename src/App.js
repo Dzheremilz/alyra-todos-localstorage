@@ -1,10 +1,23 @@
 import Todos from "./components/Todos"
+import { useState, useEffect } from "react"
 
 function App() {
+  const getTheme = () => JSON.parse(window.localStorage.getItem("dark-mode")) || false
+
+  const [darkMode, setDarkMode] = useState(getTheme);
+
+  useEffect(() => {
+    window.localStorage.setItem("dark-mode", darkMode)
+  }, [darkMode])
+
   return (
-    <div className="container my-4">
-      <h1 className="text-center">ToDos App</h1>
-      <Todos />
+    <div className={`container my-4 ${darkMode ? 'dark-theme' : 'light-theme'}`}>
+      <h1 className="text-center" id="test" >ToDos App</h1>
+      <Todos darkMode={darkMode} />
+      <div className="form-check form-switch mt-3 d-flex justify-content-end">
+        <label className="form-check-label" htmlFor="activate"> Mode Sombre </label>
+        <input className="form-check-input ms-2 mb-3" type="checkbox" id="activate" checked={darkMode} onChange={() => setDarkMode((darkMode) => !darkMode)} />
+      </div>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import Todo from "./Todo"
 
 const TodosList = (props) => {
-  const { todos, deleteTodo, toggleCompleteTodo } = props
+  const { todos, deleteTodo, toggleCompleteTodo, darkMode } = props
   return todos.map((el) => {
     return (
       <Todo
@@ -9,6 +9,7 @@ const TodosList = (props) => {
         todo={el}
         deleteTodo={deleteTodo}
         toggleCompleteTodo={toggleCompleteTodo}
+        darkMode={darkMode}
       />
     )
   })

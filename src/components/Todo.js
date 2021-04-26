@@ -1,5 +1,5 @@
 const Todo = (props) => {
-  const { todo, deleteTodo, toggleCompleteTodo } = props
+  const { todo, deleteTodo, toggleCompleteTodo, darkMode } = props
   const style = {
     textDecoration: todo.isCompleted ? "line-through" : "none"
   }
@@ -9,7 +9,7 @@ const Todo = (props) => {
       <div className="btn-group">
         {todo.isCompleted ? (
           <button
-            className="btn btn-light btn-sm btn-dark"
+            className={`btn btn-sm ${darkMode ? 'btn-light' : 'btn-dark'}`}
             type="button"
             onClick={() => toggleCompleteTodo(todo)}
           >
@@ -17,7 +17,7 @@ const Todo = (props) => {
           </button>
         ) : (
           <button
-            className="btn btn-light btn-sm"
+            className={`btn ${darkMode ? 'btn-secondary' : 'btn-light'} btn-sm`}
             type="button"
             onClick={() => toggleCompleteTodo(todo)}
           >
@@ -25,7 +25,7 @@ const Todo = (props) => {
           </button>
         )}
         <button
-          className="btn btn-danger btn-sm"
+          className={`btn btn-danger btn-sm ${darkMode ? 'text-dark' : ''}`}
           type="button"
           onClick={() => deleteTodo(todo)}
         >

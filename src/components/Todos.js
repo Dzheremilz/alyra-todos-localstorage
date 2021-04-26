@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import TodosList from "./TodosList"
 import SelectTodos from "./SelectTodos"
 import AddTodoForm from "./AddTodoForm"
@@ -32,9 +32,20 @@ const initialTodos = [
   }
 ]
 
-const Todos = () => {
-  const [todos, setTodos] = useState(initialTodos)
+const Todos = ({ darkMode }) => {
+
+  const getTodos = () => JSON.parse(window.localStorage.getItem("my-todo-list")) || initialTodos
+
+  const [todos, setTodos] = useState(getTodos)
   const [filter, setFilter] = useState("all")
+
+  useEffect(() => {
+    document.title = todos.length ? `Vous avez ${todos.length} tâches à accomplir !` : "Que devez vous faire aujourd'hui ?"
+  }, [todos])
+
+  useEffect(() => {
+    window.localStorage.setItem("my-todo-list", JSON.stringify(todos))
+  }, [todos])
 
   const addTodo = (text) => {
     const newTodo = {
@@ -79,13 +90,14 @@ const Todos = () => {
       <h2 className="text-center">
         Ma liste de tâches ({completedCount} / {todos.length})
       </h2>
-      <SelectTodos filter={filter} setFilter={setFilter} />
+      <SelectTodos filter={filter} setFilter={setFilter} darkMode={darkMode} />
       <TodosList
         todos={filteredTodos}
         deleteTodo={deleteTodo}
         toggleCompleteTodo={toggleCompleteTodo}
+        darkMode={darkMode}
       />
-      <AddTodoForm addTodo={addTodo} setFilter={setFilter} />
+      <AddTodoForm addTodo={addTodo} setFilter={setFilter} darkMode={darkMode} />
     </main>
   )
 }
