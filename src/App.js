@@ -2,18 +2,32 @@ import Todos from "./components/Todos"
 import { useState, useEffect } from "react"
 
 function App() {
-  const getTheme = () => JSON.parse(window.localStorage.getItem("dark-mode")) || false
+  const getTheme = () => {
+    return JSON.parse(window.localStorage.getItem("dark-mode")) || window.matchMedia?.('(prefers-color-scheme: dark)').matches
+  }
 
   const [darkMode, setDarkMode] = useState(getTheme);
 
   useEffect(() => {
-    window.localStorage.setItem("dark-mode", darkMode)
+    window.localStorage.setItem("dark-mode", JSON.stringify(darkMode))
+    console.log(localStorage.getItem('dark-mode'))
     if (darkMode) {
       document.body.classList.add('bg-dark')
     } else {
       document.body.removeAttribute('class')
     }
   }, [darkMode])
+
+  useEffect(() => {
+    window.matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', event => {
+        if (event.matches) {
+          setDarkMode(true)
+        } else {
+          setDarkMode(false)
+        }
+      })
+  }, [])
 
   return (
     <div className={`container my-4 ${darkMode ? 'dark-theme' : 'light-theme'}`}>
