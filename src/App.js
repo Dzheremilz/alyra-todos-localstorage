@@ -8,6 +8,11 @@ function App() {
 
   useEffect(() => {
     window.localStorage.setItem("dark-mode", darkMode)
+    if (darkMode) {
+      document.body.classList.add('bg-dark')
+    } else {
+      document.body.classList.remove('bg-dark')
+    }
   }, [darkMode])
 
   return (
