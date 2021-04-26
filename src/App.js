@@ -31,7 +31,7 @@ function App() {
     return () => {
       window.removeEventListener('change', handleThemeChange)
     }
-  })
+  }, [])
 
   return (
     <div className={`container my-4 ${darkMode ? 'dark-theme' : 'light-theme'}`}>
