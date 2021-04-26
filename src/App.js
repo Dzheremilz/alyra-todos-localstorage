@@ -11,7 +11,7 @@ function App() {
     if (darkMode) {
       document.body.classList.add('bg-dark')
     } else {
-      document.body.classList.remove('bg-dark')
+      document.body.removeAttribute('class')
     }
   }, [darkMode])
 
