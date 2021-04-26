@@ -19,15 +19,19 @@ function App() {
   }, [darkMode])
 
   useEffect(() => {
+    const handleThemeChange = (e) => {
+      if (e.matches) {
+        setDarkMode(true)
+      } else {
+        setDarkMode(false)
+      }
+    }
     window.matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', event => {
-        if (event.matches) {
-          setDarkMode(true)
-        } else {
-          setDarkMode(false)
-        }
-      })
-  }, [])
+      .addEventListener('change', handleThemeChange)
+    return () => {
+      window.removeEventListener('change', handleThemeChange)
+    }
+  })
 
   return (
     <div className={`container my-4 ${darkMode ? 'dark-theme' : 'light-theme'}`}>
