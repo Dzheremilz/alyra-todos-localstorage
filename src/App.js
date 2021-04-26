@@ -10,7 +10,6 @@ function App() {
 
   useEffect(() => {
     window.localStorage.setItem("dark-mode", JSON.stringify(darkMode))
-    console.log(localStorage.getItem('dark-mode'))
     if (darkMode) {
       document.body.classList.add('bg-dark')
     } else {
